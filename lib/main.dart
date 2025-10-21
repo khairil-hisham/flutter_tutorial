@@ -65,7 +65,7 @@ class _AboutPageState extends State<AboutPage>{
                   print('clicked');
                   Navigator.pop(context);
                 },
-                child: Text("Exit"),;;
+                child: Text("Exit"),
               ),
             ]
           )
