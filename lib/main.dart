@@ -59,7 +59,7 @@ class _AboutPageState extends State<AboutPage>{
       body: Center(
           child: Column(
             children:[
-              Text("About page"),
+              Text("About page!"),
               ElevatedButton(
                 onPressed: () {
                   print('clicked');
