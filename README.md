@@ -20,7 +20,7 @@ Set git pre-push hook so that it runs 'flutter run' before pushing:
 3 - paste this script in the file:
 
 ```
- #!/bin/bash
+#!/bin/bash
 echo "🔍 Running Flutter tests before push..."
 flutter test
 if [ $? -ne 0 ]; then
