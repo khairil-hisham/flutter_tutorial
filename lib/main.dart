@@ -21,12 +21,60 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(scaffoldBackgroundColor: Color.fromARGB(255, 221, 255, 247)),// Root widget)
-      home: HomePage()
+      home: BottomNavScreen(),
     );
   }
 }
 
-class HomePage extends StatelessWidget{
+class BottomNavScreen extends StatefulWidget {
+  const BottomNavScreen({super.key});
+
+  @override
+  State<BottomNavScreen> createState() => _BottomNavScreenState();
+}
+
+class _BottomNavScreenState extends State<BottomNavScreen> {
+  int _selectedIndex = 0;
+
+  final List<Widget> _pages = const [
+    HomePage(),
+    ProfilePage(),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: IndexedStack(
+        // keeps state of each page
+        index: _selectedIndex,
+        children: _pages,
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+        ],
+      ),
+    );
+  }
+}
+
+class HomePage extends StatefulWidget{
+  const HomePage({super.key});
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+
   @override
   Widget build(BuildContext){
     return Scaffold(
@@ -123,6 +171,29 @@ class _DigitalClockState extends State<DigitalClock> {
       "${_now.minute.toString().padLeft(2, '0')}:"
       "${_now.second.toString().padLeft(2, '0')}",
       style: const TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
+    );
+  }
+}
+
+
+class ProfilePage extends StatefulWidget {
+  const ProfilePage({super.key});
+
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  bool _darkMode = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: SwitchListTile(
+        title: const Text('Dark Mode'),
+        value: _darkMode,
+        onChanged: (value) => setState(() => _darkMode = value),
+      ),
     );
   }
 }
