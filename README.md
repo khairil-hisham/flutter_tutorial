@@ -36,7 +36,9 @@ After you made edits and want to save it on github follow these steps:
 
 1. stage and commit all files using the command:
 
-> git commit -am "your message here"
+> git add .
+> 
+> git commit -m "your message here"
 <br>
 
 2. pull any changes fromn github that someone else might have made to the main branch
