@@ -10,6 +10,27 @@ A few resources:
 [online documentation](https://docs.flutter.dev/)
 
 # Before working on this project!
+### you need
+- git
+- flutter
+- vscode
+
+<img width="344" height="287" alt="image" src="https://github.com/user-attachments/assets/d846df48-f21b-41d0-a0c1-dfac78f0c315" />
+
+If you want to work on this project you can't just download as zip as that would only provide a snapshot of the project.
+You need to clone it using git
+
+> git clone http://github.com/khairil-hisham/flutter_tutorial
+
+After that make sure you are able to build the flutter app. These commands are needed to run for first time build so that libraries are installed
+
+> flutter pub get
+>
+> flutter run
+
+<hr>
+
+### hook that makes sure you don't push broken project
 
 Set git pre-push hook so that it runs 'flutter run' before pushing:
 
