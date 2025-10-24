@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:async';
+import 'package:http/http.dart' as http;
 
-void main() => runApp(const MyApp());
+void main() async {
+  try{
+    final response = await http.get(Uri.parse('http://localhost:5039/')).timeout(const Duration(seconds:3));
+    if(response.statusCode == 200) print(response.body);
+  }catch(e){
+    print("error connecting to .net backend");
+  }
+  runApp(const MyApp());
+
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
