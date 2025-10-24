@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 
-//import pages
+import 'package:flutter_tutorial/globals.dart' as globals;
 import 'package:flutter_tutorial/about_page.dart';
 
 void main() async {
@@ -86,7 +86,7 @@ class _HomePageState extends State<HomePage> {
               return Column(
                 children: [
                   Image.asset('assets/images/flutter-logo.png'),
-                  const Text('Hello, World!'),
+                  Text('Hello, ${globals.currentUser}'),
                   const SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () {
@@ -116,15 +116,14 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  bool _darkMode = false;
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: SwitchListTile(
         title: const Text('Dark Mode'),
-        value: _darkMode,
-        onChanged: (value) => setState(() => _darkMode = value),
+        value: globals.darkMode,
+        onChanged: (value) => setState(() => globals.darkMode = value),
       ),
     );
   }
