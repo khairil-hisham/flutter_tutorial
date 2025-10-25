@@ -7,12 +7,12 @@ class AppState extends ChangeNotifier {
   String get username => _username;
   bool get darkMode => _darkMode;
 
-  void setUsername(String name){
+  void setUsername(String name) {
     _username = name;
     notifyListeners();
   }
-  
-  void setDarkMode(bool state){
+
+  void setDarkMode(bool state) {
     _darkMode = state;
     notifyListeners();
   }

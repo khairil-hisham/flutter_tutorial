@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 import 'package:flutter_tutorial/globals.dart' as globals;
 import 'package:flutter_tutorial/about_page.dart';
-import 'package:flutter_tutorial/app_state.dart';
+import 'providers/app_state.dart';
 
 void main() async {
   try{
@@ -14,13 +14,7 @@ void main() async {
   }catch(e){
     print("error connecting to .net backend");
   }
-  runApp(
-    ChangeNotifierProvider(
-      create: (_) => AppState(),
-      child: const MyApp()
-    ),
-  );
-
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -28,10 +22,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(scaffoldBackgroundColor: Color.fromARGB(255, 221, 255, 247)),// Root widget)
-      home: BottomNavScreen(),
-    );
+
+    return ChangeNotifierProvider(
+      create: (context) => AppState(),
+      child: MaterialApp(
+        theme: ThemeData(scaffoldBackgroundColor: Color.fromARGB(255, 221, 255, 247)),// Root widget)
+        home: const BottomNavScreen(),
+    ));
   }
 }
 
@@ -85,7 +82,7 @@ class HomePage extends StatefulWidget{
 class _HomePageState extends State<HomePage> {
 
   @override
-  Widget build(BuildContext){
+  Widget build(BuildContext context){
     return Scaffold(
         body: Center(
           child: Builder(
@@ -135,31 +132,31 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Center(
-      child:Column(
-        children: [
-          Text('current theme : ${context.watch<AppState>().darkMode ? 'dark mode' : 'light mode'}'),
-          SwitchListTile(
-          title: const Text('Dark Mode'),
-          value: context.watch<AppState>().darkMode,
-          onChanged: (value) => setState(() => context.read<AppState>().setDarkMode(value)),
-          ),
-          const SizedBox(height: 20),
-          TextField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              hintText: 'Enter username',
-            ),
-            controller: nameController,
-          ),
-          ElevatedButton(
-            onPressed: (){
-              context.read<AppState>().setUsername(nameController.text);
-            }, 
-            child: Text('Set username')
+      child: Column(
+            children: [
+              Text('current theme : ${context.watch<AppState>().darkMode ? 'dark mode' : 'light mode'}'),
+              SwitchListTile(
+              title: const Text('Dark Mode'),
+              value: context.watch<AppState>().darkMode,
+              onChanged: (value) => setState(() => context.read<AppState>().setDarkMode(value)),
+              ),
+              const SizedBox(height: 20),
+              TextField(
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: 'Enter username',
+                ),
+                controller: nameController,
+              ),
+              ElevatedButton(
+                onPressed: (){
+                  context.read<AppState>().setUsername(nameController.text);
+                }, 
+                child: const Text('Set username')
+              )
+            ]
           )
-      ])
     );
   }
 }
