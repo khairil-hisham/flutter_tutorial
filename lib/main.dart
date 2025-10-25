@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 
 import 'package:flutter_tutorial/globals.dart' as globals;
 import 'package:flutter_tutorial/about_page.dart';
+import 'package:flutter_tutorial/app_state.dart';
 
 void main() async {
   try{
@@ -12,7 +14,12 @@ void main() async {
   }catch(e){
     print("error connecting to .net backend");
   }
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => AppState(),
+      child: const MyApp()
+    ),
+  );
 
 }
 
@@ -86,7 +93,7 @@ class _HomePageState extends State<HomePage> {
               return Column(
                 children: [
                   Image.asset('assets/images/flutter-logo.png'),
-                  Text('Hello, ${globals.currentUser}'),
+                  Text('Hello, ${context.watch<AppState>().username}'),
                   const SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () {
@@ -117,14 +124,42 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
 
+  final nameController = TextEditingController();
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    nameController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
+
     return Center(
-      child: SwitchListTile(
-        title: const Text('Dark Mode'),
-        value: globals.darkMode,
-        onChanged: (value) => setState(() => globals.darkMode = value),
-      ),
+      child:Column(
+        children: [
+          Text('current theme : ${context.watch<AppState>().darkMode ? 'dark mode' : 'light mode'}'),
+          SwitchListTile(
+          title: const Text('Dark Mode'),
+          value: context.watch<AppState>().darkMode,
+          onChanged: (value) => setState(() => context.read<AppState>().setDarkMode(value)),
+          ),
+          const SizedBox(height: 20),
+          TextField(
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              hintText: 'Enter username',
+            ),
+            controller: nameController,
+          ),
+          ElevatedButton(
+            onPressed: (){
+              context.read<AppState>().setUsername(nameController.text);
+            }, 
+            child: Text('Set username')
+          )
+      ])
     );
   }
 }
