@@ -8,6 +8,7 @@ import 'providers/app_state.dart';
 
 
 //test comment
+//another line
 void main() async {
   try{
     final response = await http.get(Uri.parse('http://localhost:5039/')).timeout(const Duration(seconds:3));
