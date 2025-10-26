@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
-import 'package:flutter_tutorial/globals.dart' as globals;
 import 'package:flutter_tutorial/about_page.dart';
 import 'providers/app_state.dart';
 
