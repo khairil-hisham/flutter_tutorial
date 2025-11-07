@@ -75,7 +75,7 @@ stage everything again and continue the rebase command:
 > git rebase --continue
 
 - if you decide to undo all the changes you've made, you can revert back to the last time you commit a change (assuming you have not staged any file
-which in that case you need to use another command)
+which in that case you need to use another command: 'git reset --hard HEAD')
 
 > git restore .
 <br>
